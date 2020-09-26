@@ -2,6 +2,14 @@
 name = "obex"
 version = "0.1.0"
 authors = ["Joshua Terrasas <joshua.terrasas@studentbody.byu.edu>"]
+license = "MIT"
+description = "A library that handles retrieval, parsing, and updating a copy of the Parallax Obex"
+homepage = "https://github.com/emiljt/obex_rs"
+documentation = ""
+repository = "https://github.com/emiljt/obex_rs"
+readme = "README.md"
+keywords = ["parallax", "obex", "propeller", "basic_stamp"]
+categories = ["filesystem", "parsing"]
 edition = "2018"
 
 [dependencies]

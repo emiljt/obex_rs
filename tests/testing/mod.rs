@@ -10,7 +10,7 @@ pub fn create_test_directory(name: &str) -> String {
     match fs::read_dir(&test_directory) {
         Ok(_) => {
             remove_test_directory(&test_directory);
-        },
+        }
         Err(_) => (),
     }
 

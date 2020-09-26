@@ -59,34 +59,38 @@ impl Repository {
         // Analyze merge
         let merge = match self.repo.merge_analysis(&[&commit]) {
             Ok(m) => m,
-            Err(_) => return Err("Error analyizing merge")
+            Err(_) => return Err("Error analyizing merge"),
         };
 
         // Validate analysis
         if merge.0.is_up_to_date() {
             Ok(())
         } else if merge.0.is_fast_forward() {
-            let mut branch_head = match self.repo.find_reference(&format!("refs/heads/{}", branch)) {
+            let mut branch_head = match self.repo.find_reference(&format!("refs/heads/{}", branch))
+            {
                 Ok(reference) => reference,
-                Err(_) => return Err("Error finding branch HEAD")
+                Err(_) => return Err("Error finding branch HEAD"),
             };
 
             // Fast-forward
             match branch_head.set_target(commit.id(), "Fast-forward") {
                 Ok(_) => (),
-                Err(_) => return Err("Error fast-forwarding branch")
+                Err(_) => return Err("Error fast-forwarding branch"),
             }
 
             // Set HEAD for current branch
             match self.repo.set_head(&format!("refs/heads/{}", branch)) {
                 Ok(_) => (),
-                Err(_) => return Err("Error setting branch HEAD")
+                Err(_) => return Err("Error setting branch HEAD"),
             };
 
             // Checkout new HEAD
-            match self.repo.checkout_head(Some(git2::build::CheckoutBuilder::default().safe())) {
+            match self
+                .repo
+                .checkout_head(Some(git2::build::CheckoutBuilder::default().safe()))
+            {
                 Ok(_) => Ok(()),
-                Err(_) => Err("Error checking out new HEAD")
+                Err(_) => Err("Error checking out new HEAD"),
             }
         } else {
             Err("Error merging fetched changes")
