@@ -1,7 +1,7 @@
-pub mod obex;
-mod repository;
 mod category;
+pub mod obex;
 mod object;
+mod repository;
 
 // Repository
 // Category

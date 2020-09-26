@@ -1,6 +1,6 @@
-use super::repository::Repository;
 use super::category::Category;
 use super::object::Object;
+use super::repository::Repository;
 
 const OBEX_TRACKING_BRANCH: &str = "master";
 const OBEX_ROOT_PATH: &str = "libraries";
@@ -14,7 +14,7 @@ pub struct Obex {
 }
 
 impl Obex {
-    pub fn initialize(url: &str, path: &str) -> Result<Obex, &'static str> {
+    pub fn new(url: &str, path: &str) -> Result<Obex, &'static str> {
         // Clone Obex git repository
         let new_repo = match Repository::clone(url, path) {
             Ok(repo) => repo,
@@ -81,15 +81,13 @@ impl Obex {
         // };
 
         // Read community categories
-        self.community_categories = match Category::read_categories(
-            &format!(
-                "{path}/{root}/{source}/{platform}",
-                path = self.repository.path,
-                root = OBEX_ROOT_PATH,
-                source = "community",
-                platform = "p1"
-            ))
-        {
+        self.community_categories = match Category::read_categories(&format!(
+            "{path}/{root}/{source}/{platform}",
+            path = self.repository.path,
+            root = OBEX_ROOT_PATH,
+            source = "community",
+            platform = "p1"
+        )) {
             Ok(c) => c,
             Err(_) => return Err("Error reading obex categories"),
         };
@@ -109,15 +107,13 @@ impl Obex {
         // };
 
         // Read community objects
-        self.community_objects = match Object::read_objects(
-            &format!(
-                "{path}/{root}/{source}/{platform}/All",
-                path = self.repository.path,
-                root = OBEX_ROOT_PATH,
-                source = "community",
-                platform = "p1"
-            ))
-        {
+        self.community_objects = match Object::read_objects(&format!(
+            "{path}/{root}/{source}/{platform}/All",
+            path = self.repository.path,
+            root = OBEX_ROOT_PATH,
+            source = "community",
+            platform = "p1"
+        )) {
             Ok(o) => o,
             Err(_) => return Err("Error reading obex objects"),
         };
