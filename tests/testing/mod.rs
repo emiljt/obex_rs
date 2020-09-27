@@ -1,11 +1,11 @@
 use std::fs;
 
-const root_directory: &str = "/tmp";
+const ROOT_DIRECTORY: &str = "/tmp";
 
 pub fn create_test_directory(name: &str) -> String {
-    let test_directory = format!("{}/{}", root_directory, name);
+    let test_directory = format!("{}/{}", ROOT_DIRECTORY, name);
 
-    fs::read_dir(root_directory).expect("Error opening temp for tests");
+    fs::read_dir(ROOT_DIRECTORY).expect("Error opening temp for tests");
 
     match fs::read_dir(&test_directory) {
         Ok(_) => {
