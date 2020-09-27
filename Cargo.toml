@@ -13,4 +13,4 @@ categories = ["filesystem", "parsing"]
 edition = "2018"
 
 [dependencies]
-git2 = "*"
+git2 = "^0.13.11"
